@@ -1,7 +1,9 @@
+
+
 .chessboard {
     width: 640px;
     height: 640px;
-    margin: 20px auto;
+    margin: 20px auto; 
     border: 25px solid #333;
 }
 .black {
@@ -24,4 +26,3 @@
     display: table-cell;
     vertical-align:middle;
 }
-
