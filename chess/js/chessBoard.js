@@ -1,27 +1,36 @@
-class Board {
+export class Board {
   constructor(config) {
     this.options = {
-      selector: document.getElementById("chess-board"),
+      element: document.querySelector('.chessboard'),
       width: 600,
     };
-    if (!!config) {
+    if(!!config){
       this.options = {
         ...this.options,
         ...config
       };
     }
+
+  }
+
+  setElement(selector) {
+    this.options.element = document.querySelector(selector);
+  }
+  getElement() {
+    return this.options.element;
   }
 
   renderBoard() {
-    let rootNode = this.options.selector;
+    const rootNode = this.options.element;
     for (let index = 1; index < 9; index++) {
-      let rowType = index % 2 === 0 ? 'even' : 'odd';
+      const rowType = index % 2 === 0 ? 'even' : 'odd';
       this.createBoardRow(rootNode, rowType);
     }
+
   }
 
   createSquare(parentNode, className) {
-    let square = document.createElement('div');
+    const square = document.createElement('div');
     square.classList.add(className);
     parentNode.appendChild(square);
   }
@@ -29,7 +38,7 @@ class Board {
   createBoardRow(parentNode, rowType) {
     let index = 1;
     while (index < 9) {
-      let className = this.getColor(index, rowType);
+      const className = this.getColor(index, rowType);
       this.createSquare(parentNode, className);
       index++;
     }
@@ -46,12 +55,12 @@ class Board {
   }
 
 
-  addPiece(type, position){
+  addPiece(type, position) {
     let piece = document.createElement('div');
     piece.innerHTML = type;
     let parentNode = document.querySelectorAll(".chessboard>div")[position];
     !!parentNode && parentNode.appendChild(piece);
+
   }
 
 }
-// export  default Board;

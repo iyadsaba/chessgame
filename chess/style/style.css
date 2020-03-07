@@ -3,7 +3,7 @@
 .chessboard {
     width: 640px;
     height: 640px;
-    margin: 20px auto; 
+    margin: 0px auto; 
     border: 25px solid #333;
 }
 .black {
@@ -25,4 +25,8 @@
     text-align:center;
     display: table-cell;
     vertical-align:middle;
+}
+.chessboard > div >div { 
+    height: 80px;
+    width: 80px;
 }
