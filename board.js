@@ -19,6 +19,7 @@ module.exports =  class Board {
         }
         return board;
     }
+     
     buildRow(rowNumber){
         let row = [];
         for(let j=0;j<8;j++){
@@ -40,6 +41,5 @@ module.exports =  class Board {
 
     };  
 
-
-
+    
 }
