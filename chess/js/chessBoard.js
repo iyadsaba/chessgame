@@ -55,9 +55,10 @@ export class Board {
   }
 
 
-  addPiece(type, position) {
+  addPiece(type, position, name) {
     let piece = document.createElement('div');
     piece.innerHTML = type;
+    piece.setAttribute('name', name)
     let parentNode = document.querySelectorAll(".chessboard>div")[position];
     !!parentNode && parentNode.appendChild(piece);
 

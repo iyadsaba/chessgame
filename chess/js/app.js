@@ -4,18 +4,18 @@ const axios = require('axios');
 
 let chessBoard = new Board();
 chessBoard.renderBoard();
-chessBoard.addPiece(('&#9822;'), 1);
+chessBoard.addPiece(('&#9822;'), 1, 'Knight');
 
 
 //API Calls 
 //------------------------------------------
 
 
-axios.get('/allowdrag').then(response => {
-    console.log("allowdrag response ")
-}).catch(error => {
-    console.log(error);
-});
+// axios.get('/allowdrag').then(response => {
+//     console.log("allowdrag response ")
+// }).catch(error => {
+//     console.log(error);
+// });
 
 
 //drag settings 
@@ -29,10 +29,6 @@ let option = {
 }
 let draggableElement = new Draggable(element, option);
 
-let index = { 
-    start : 0,
-    end : 0
-}
 
 let position = {
     x: 0,
@@ -47,14 +43,18 @@ function startDragHandler(element, x, y, event) {
     position.x = x;
     position.y =  y;
     const piece = event.target;
-    index.start= getIndex(squares,piece);
+    const start= getIndex(squares,piece);
+    const name = piece.getAttribute('name');
+    axios.post('/dragStart',{start, name}).then((response) => {
+        console.log('dragStart',response)
+    });
 
 }
 
 function endDragHandler(element, x, y, event) {
     let piece = event.target;
-     index.end = getIndex(squares,piece);
-    axios.post('/setposition',index).then((response) => {
+     const end = getIndex(squares,piece);
+    axios.post('/dragend',{end}).then((response) => {
         if(!response.data.isValid){
             draggableElement.set(position.x,position.y);
         }
