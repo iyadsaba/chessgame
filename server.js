@@ -16,20 +16,19 @@ app.use(express.static(__dirname + '/chess'));
 
 
 app.post('/dragStart',jsonParser, (req, res) => {
-    let start = req.body.start;
-    let type = req.body.name;
-    console.log(`type : ${type}`)
-    console.log(`start : ${start}`)
-    movieOptions = utils.getOptions(start, type);
+    const start = req.body.start;
+    const name = req.body.name;
+    movieOptions = utils.getOptions(start, name);
     res.send({movieOptions})
 });
 
 
 app.post('/dragend',jsonParser, (req,res)=>{
-    if(movieOptions.indexOf(req.body.end) > -1){
-    res.send({isValid : true})
+    const end = req.body.end;
+    if(movieOptions.indexOf(end) > -1){
+    res.json({isValidMove : true , end : end})
     }else { 
-        res.send({isValid : false})
+        res.json({isValidMove : false , end : end})
     }
 });
 

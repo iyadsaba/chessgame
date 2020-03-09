@@ -25,7 +25,6 @@ let option = {
     limit: document.querySelector("main"),
     onDragStart: startDragHandler,
     onDragEnd: endDragHandler,
-    smoothDrag: true
 }
 let draggableElement = new Draggable(element, option);
 
@@ -41,24 +40,24 @@ const squares = [...board.children];
 //---------------------------------------------
 function startDragHandler(element, x, y, event) {
     position.x = x;
-    position.y =  y;
+    position.y = y;
     const piece = event.target;
-    const start= getIndex(squares,piece);
+    const start = getIndex(squares, piece);
     const name = piece.getAttribute('name');
-    axios.post('/dragStart',{start, name}).then((response) => {
-        console.log('dragStart',response)
+    axios.post('/dragStart', { start, name }).then((response) => {
+        console.log('dragStart', response.data)
     });
-
 }
 
 function endDragHandler(element, x, y, event) {
     let piece = event.target;
-     const end = getIndex(squares,piece);
-    axios.post('/dragend',{end}).then((response) => {
-        if(!response.data.isValid){
-            draggableElement.set(position.x,position.y);
+    const end = getIndex(squares, piece);
+    axios.post('/dragend', { end }).then((response) => {
+        console.log('dragEnd', response.data)
+        if (!response.data.isValidMove) {
+            resetPosition();
         }
-    })
+    });
 }
 
 
@@ -70,18 +69,20 @@ function getIndex(squares, piece) {
         const square = squares[i];
         let xDiff = Math.abs(square.offsetLeft - piece.offsetLeft);
         let yDiff = Math.abs(square.offsetTop - piece.offsetTop);
-        if (isWrapper(xDiff,yDiff)) {
+        if (isWrapper(xDiff, yDiff)) {
             index = i;
             break;
         }
     }
-
-    function isWrapper(xDiff,yDiff){
-        return (xDiff <= 40) && (yDiff <= 40) ;
-    }
     return index;
 }
 
+function isWrapper(xDiff, yDiff) {
+    return (xDiff <= 40) && (yDiff <= 40);
+}
+function resetPosition() {
+    draggableElement.set(position.x, position.y);
+}
 
 //---------------------------------------------
 
