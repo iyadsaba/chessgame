@@ -1,3 +1,6 @@
+
+let movieOptions = [];
+
 function getOptions(index , name) {
     let position =getCoordinates(index);
     return getPieceOptions(position , name);
@@ -29,12 +32,13 @@ function isValidMove(x ,y){
 }
 
 function getPieceRules(name){
-    let piecesRoles = {
+    let piecesRules = {
         Knight : [[2, 1],[2, -1],[-2, 1],[-2, -1],[1, 2], [1, -2], [-1, 2],[-1, -2] ]
     }
-    return piecesRoles[name];
+    return piecesRules[name];
 }
 
 module.exports = {
-    getOptions
+    getOptions,
+    movieOptions
 }

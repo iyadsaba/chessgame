@@ -2,7 +2,7 @@ export class Board {
   constructor(config) {
     this.options = {
       element: document.querySelector('.chessboard'),
-      width: 600,
+      width: 640,
     };
     if(!!config){
       this.options = {
@@ -10,13 +10,12 @@ export class Board {
         ...config
       };
     }
-
   }
 
-  setElement(selector) {
+  setBoardElement(selector) {
     this.options.element = document.querySelector(selector);
   }
-  getElement() {
+  getBoardElement() {
     return this.options.element;
   }
 
@@ -55,12 +54,14 @@ export class Board {
   }
 
 
-  addPiece(type, position, name) {
-    let piece = document.createElement('div');
-    piece.innerHTML = type;
-    piece.setAttribute('name', name)
+  addPiece(pieceObj) {
+    let {type, position , name} =pieceObj;
+    let pieceEl = document.createElement('div');
+    pieceEl.innerHTML = type;
+    pieceEl.setAttribute('name', name);
+    pieceEl.classList.add(`piece${position}`);
     let parentNode = document.querySelectorAll(".chessboard>div")[position];
-    !!parentNode && parentNode.appendChild(piece);
+    !!parentNode && parentNode.appendChild(pieceEl);
 
   }
 

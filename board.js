@@ -1,3 +1,5 @@
+
+//unused code just an example, please ignore 
 module.exports =  class Board { 
 
     constructor(config){
